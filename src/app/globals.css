@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #D42127;
-  --color-primary-dark: #B01B20;
-  --color-primary-light: #E8484D;
-  --color-secondary: #1A1A2E;
-  --color-accent: #C8956C;
-  --color-accent-light: #D4A97A;
-  --color-dark: #0F0F1A;
-  --color-dark-light: #1A1A2E;
-  --color-gray-50: #F8F8FA;
-  --color-gray-100: #F0F0F3;
-  --color-gray-200: #E4E4E8;
-  --color-gray-300: #C8C8D0;
-  --color-gray-400: #9999A5;
-  --color-gray-500: #6B6B7B;
-  --color-gray-600: #4A4A5A;
-  --color-gray-700: #2D2D3D;
+  --color-primary: #B21F24;
+  /* Deeper, richer editorial red */
+  --color-primary-dark: #8C1417;
+  --color-primary-light: #D9383E;
+  --color-secondary: #0D1321;
+  /* Very dark navy/charcoal for deeper contrast */
+  --color-accent: #D4AF37;
+  /* Elegant metallic gold accent instead of warm orange */
+  --color-accent-light: #F3E5AB;
+  --color-dark: #0A0A0A;
+  --color-dark-light: #1A1A1A;
+  --color-gray-50: #FAFAF9;
+  /* Warmer, softer off-white/cream */
+  --color-gray-100: #F5F5F4;
+  --color-gray-200: #E7E5E4;
+  --color-gray-300: #D6D3D1;
+  --color-gray-400: #A8A29E;
+  --color-gray-500: #78716C;
+  --color-gray-600: #57534E;
+  --color-gray-700: #44403C;
   --color-white: #FFFFFF;
+  --color-background-cream: #FAF9F6;
+  /* Luxury linen/cream background */
   --color-background: #FFFFFF;
-  --color-foreground: #0F0F1A;
+  --color-foreground: #0A0A0A;
 
   --font-heading: var(--font-playfair), Georgia, serif;
   --font-body: var(--font-inter), system-ui, sans-serif;

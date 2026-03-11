@@ -15,7 +15,7 @@ interface ParallaxBannerProps {
 export default function ParallaxBanner({
     title,
     subtitle,
-    height = "h-[50vh]",
+    height = "h-[60vh]",
 }: ParallaxBannerProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
@@ -44,33 +44,38 @@ export default function ParallaxBanner({
     }, []);
 
     return (
-        <section ref={sectionRef} className={`relative overflow-hidden ${height}`}>
+        <section ref={sectionRef} className={`relative overflow-hidden ${height} flex items-center justify-center`}>
             <div
                 ref={bgRef}
-                className="absolute inset-0 -top-[20%] -bottom-[20%] bg-gradient-to-br from-secondary via-dark to-primary/30"
+                className="absolute inset-0 -top-[20%] -bottom-[20%] w-full"
             >
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-accent rounded-full blur-3xl" />
-                    <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-primary rounded-full blur-3xl" />
-                </div>
+                {/* High-end cinematic travel image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=2070&auto=format&fit=crop')" }}
+                />
             </div>
 
-            <div className="absolute inset-0 bg-dark/50" />
+            {/* Cinematic dark overlay */}
+            <div className="absolute inset-0 bg-dark/60 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-dark/40" />
 
             {(title || subtitle) && (
-                <div className="relative z-10 flex items-center justify-center h-full text-center px-4">
-                    <div>
-                        {subtitle && (
-                            <p className="text-accent text-sm uppercase tracking-[0.2em] mb-3 font-semibold">
+                <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 max-w-4xl mx-auto">
+                    {subtitle && (
+                        <div className="flex items-center gap-4 mb-6">
+                            <span className="w-8 h-[1px] bg-white/50"></span>
+                            <p className="text-white text-xs uppercase tracking-[0.4em] font-medium">
                                 {subtitle}
                             </p>
-                        )}
-                        {title && (
-                            <h2 className="font-heading text-3xl md:text-5xl font-bold text-white">
-                                {title}
-                            </h2>
-                        )}
-                    </div>
+                            <span className="w-8 h-[1px] bg-white/50"></span>
+                        </div>
+                    )}
+                    {title && (
+                        <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-tight tracking-tight drop-shadow-lg">
+                            {title}
+                        </h2>
+                    )}
                 </div>
             )}
         </section>

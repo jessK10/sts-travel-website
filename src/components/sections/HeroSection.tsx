@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -29,13 +29,32 @@ export default function HeroSection({
 }: HeroSectionProps) {
     const heroRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
+    const splitTextRef = useRef<HTMLHeadingElement>(null);
+
+    // Subtle parallax for the inner content via Framer Motion
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"],
+    });
+
+    const yContent = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+    const opacityContent = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     useEffect(() => {
         if (!bgRef.current || !heroRef.current) return;
 
+        // GSAP slow zoom and parallax for the cinematic background image
         const ctx = gsap.context(() => {
+            // Initial slow zoom animation on load
+            gsap.fromTo(
+                bgRef.current,
+                { scale: 1.1 },
+                { scale: 1, duration: 20, ease: "power1.out" }
+            );
+
+            // Scroll parallax
             gsap.to(bgRef.current, {
-                yPercent: 30,
+                yPercent: 20,
                 ease: "none",
                 scrollTrigger: {
                     trigger: heroRef.current,
@@ -49,125 +68,135 @@ export default function HeroSection({
         return () => ctx.revert();
     }, []);
 
+    // Placeholder luxury travel image (Lake Como / Mountains feel)
+    const bgImageUrl = "https://images.unsplash.com/photo-1542314831-c53394142f9b?q=80&w=2670&auto=format&fit=crop";
+
     return (
         <section
             ref={heroRef}
-            className={`relative overflow-hidden flex items-center ${fullScreen ? "min-h-screen" : "min-h-[60vh]"
+            className={`relative overflow-hidden flex items-center justify-center ${fullScreen ? "min-h-screen" : "min-h-[70vh]"
                 }`}
             aria-label="Hero section"
         >
-            {/* Parallax Background */}
-            <div
-                ref={bgRef}
-                className="absolute inset-0 -top-[15%] -bottom-[15%] bg-gradient-to-br from-dark via-secondary to-dark"
-            >
-                {/* Decorative elements */}
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl" />
-                    <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl" />
-                    <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-primary/10 rounded-full blur-2xl" />
-                </div>
-
-                {/* Pattern overlay */}
+            {/* Parallax Background Image */}
+            <div className="absolute inset-0 -top-[10%] -bottom-[10%] w-full h-[120%] overflow-hidden z-0 bg-dark">
                 <div
-                    className="absolute inset-0 opacity-5"
-                    style={{
-                        backgroundImage:
-                            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-                        backgroundSize: "40px 40px",
-                    }}
+                    ref={bgRef}
+                    className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${bgImageUrl})` }}
                 />
             </div>
 
-            {/* Gradient overlay */}
+            {/* Cinematic Overlays (Vignette + Gradient + Grain) */}
             {overlay && (
-                <div className="absolute inset-0 bg-gradient-to-b from-dark/60 via-dark/40 to-dark/80" />
+                <>
+                    {/* Main darkening gradient */}
+                    <div className="absolute inset-0 z-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark/90" />
+
+                    {/* Edge vignette for cinematic focus */}
+                    <div className="absolute inset-0 z-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.8)] pointer-events-none" />
+
+                    {/* Subtle noise/grain texture */}
+                    <div
+                        className="absolute inset-0 z-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+                        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
+                    />
+                </>
             )}
 
-            {/* Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
-                <div className="max-w-3xl">
+            {/* Content Container */}
+            <motion.div
+                className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full flex flex-col items-center text-center mt-12"
+                style={{ y: yContent, opacity: opacityContent }}
+            >
+                <div className="max-w-4xl flex flex-col items-center">
+                    {/* Subtitle */}
                     {subtitle && (
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-accent font-semibold text-sm uppercase tracking-[0.25em] mb-4"
+                            transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+                            className="flex items-center gap-4 mb-6"
                         >
-                            {subtitle}
-                        </motion.p>
+                            <span className="w-8 h-[1px] bg-accent"></span>
+                            <p className="text-accent font-medium text-xs sm:text-sm uppercase tracking-[0.4em]">
+                                {subtitle}
+                            </p>
+                            <span className="w-8 h-[1px] bg-accent"></span>
+                        </motion.div>
                     )}
 
+                    {/* Editorial Title */}
                     <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
+                        ref={splitTextRef}
+                        initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-6"
+                        transition={{ duration: 1.2, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        className="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-medium text-white leading-[1.05] mb-8 tracking-tight drop-shadow-xl"
                     >
                         {title}
                     </motion.h1>
 
+                    {/* Description */}
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 }}
-                        className="text-gray-300 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl"
+                        transition={{ duration: 1, delay: 0.7, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        className="text-gray-200 text-lg md:text-xl font-light leading-relaxed mb-12 max-w-2xl drop-shadow-md"
                     >
                         {description}
                     </motion.p>
 
+                    {/* CTA Buttons */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.9 }}
-                        className="flex flex-wrap gap-4"
+                        transition={{ duration: 1, delay: 0.9, ease: [0.21, 0.47, 0.32, 0.98] }}
+                        className="flex flex-col sm:flex-row items-center gap-6"
                     >
                         {ctaPrimary && (
                             <Link
                                 href={ctaPrimary.href}
-                                className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 group"
+                                className="relative overflow-hidden group inline-flex items-center justify-center gap-3 bg-primary text-white border border-primary px-10 py-4 text-sm uppercase tracking-[0.15em] font-medium transition-all duration-500 hover:shadow-[0_0_30px_rgba(178,31,36,0.4)]"
                             >
-                                {ctaPrimary.label}
-                                <svg
-                                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                <span className="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out z-0"></span>
+                                <span className="relative z-10">{ctaPrimary.label}</span>
+                                <svg className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
                             </Link>
                         )}
                         {ctaSecondary && (
                             <Link
                                 href={ctaSecondary.href}
-                                className="inline-flex items-center gap-2 border-2 border-white/30 hover:border-white/60 text-white px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 hover:bg-white/10"
+                                className="inline-flex items-center justify-center px-10 py-4 text-sm uppercase tracking-[0.15em] font-medium text-white transition-all duration-500 hover:text-accent relative after:absolute after:bottom-3 after:left-10 after:right-10 after:h-[1px] after:bg-white/30 hover:after:bg-accent after:transition-colors"
                             >
                                 {ctaSecondary.label}
                             </Link>
                         )}
                     </motion.div>
                 </div>
-            </div>
+            </motion.div>
 
-            {/* Bottom gradient fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+            {/* Bottom transition gradient (fade to off-white/cream if not dark mode) */}
+            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background-cream to-transparent z-10 pointer-events-none" />
 
-            {/* Scroll indicator */}
+            {/* Premium scroll indicator */}
             {fullScreen && (
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5, duration: 0.8 }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+                    transition={{ delay: 1.5, duration: 1 }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3"
                 >
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-6 h-10 border-2 border-white/40 rounded-full flex items-start justify-center p-2"
-                    >
-                        <div className="w-1 h-2 bg-white/60 rounded-full" />
-                    </motion.div>
+                    <span className="text-[10px] uppercase text-white/60 tracking-[0.3em] font-medium">Scroll to explore</span>
+                    <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+                        <motion.div
+                            animate={{ y: ["-100%", "100%"] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            className="absolute top-0 left-0 w-full h-full bg-white"
+                        />
+                    </div>
                 </motion.div>
             )}
         </section>

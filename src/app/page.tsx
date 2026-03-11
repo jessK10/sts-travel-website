@@ -8,7 +8,14 @@ import AnimatedSection from "@/components/ui/AnimatedSection";
 import { company } from "@/content/company";
 import { services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
-import { gallery } from "@/content/gallery";
+
+// Fallback high-quality destination images for the visual grid
+const destinations = [
+  { id: 1, title: "Amalfi Coast, Italy", img: "https://images.unsplash.com/photo-1533676802871-eca1ae998cd5?q=80&w=2070&auto=format&fit=crop", span: "md:col-span-2 md:row-span-2" },
+  { id: 2, title: "Kyoto, Japan", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop", span: "md:col-span-1 md:row-span-1" },
+  { id: 3, title: "Santorini, Greece", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac542?q=80&w=2070&auto=format&fit=crop", span: "md:col-span-1 md:row-span-1" },
+  { id: 4, title: "Maldives", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2065&auto=format&fit=crop", span: "md:col-span-2 md:row-span-1" },
+];
 
 export default function HomePage() {
   return (
@@ -22,126 +29,114 @@ export default function HomePage() {
         ctaSecondary={{ label: "Our Services", href: "/services" }}
       />
 
-      {/* ===== Brand Introduction ===== */}
-      <section className="section-padding bg-white">
+      {/* ===== Brand Introduction (Editorial Style) ===== */}
+      <section className="section-padding bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <AnimatedSection>
-              <span className="text-primary text-sm font-semibold uppercase tracking-[0.2em] mb-3 block">
-                Welcome to {company.shortName}
-              </span>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-dark mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+            <AnimatedSection className="order-2 lg:order-1 relative">
+              <div className="grid grid-cols-2 gap-4 relative z-10">
+                <div className="space-y-4 translate-y-8">
+                  <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100 shadow-2xl">
+                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop')" }} />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100 shadow-2xl">
+                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop')" }} />
+                  </div>
+                </div>
+              </div>
+              {/* Decorative accent behind images */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-background-cream -z-10 rounded-full blur-[80px]" />
+            </AnimatedSection>
+
+            <AnimatedSection direction="right" delay={0.2} className="order-1 lg:order-2">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="w-12 h-[1px] bg-primary"></span>
+                <span className="text-primary text-xs font-medium uppercase tracking-[0.3em]">
+                  Welcome to {company.shortName}
+                </span>
+              </div>
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-medium text-dark mb-8 leading-[1.1] tracking-tight">
                 Your Trusted Partner in{" "}
-                <span className="text-gradient">Unforgettable Travel</span>
+                <span className="italic text-primary">Unforgettable</span> Travel
               </h2>
-              <p className="text-gray-500 leading-relaxed mb-6">
+              <p className="text-gray-500 font-light text-lg leading-relaxed mb-10">
                 {company.longDescription}
               </p>
-              <div className="grid grid-cols-2 gap-6">
+
+              <div className="grid grid-cols-2 gap-x-8 gap-y-10 pt-10 border-t border-gray-100">
                 {company.stats.map((stat) => (
                   <div key={stat.label}>
-                    <p className="font-heading text-3xl font-bold text-primary">{stat.value}</p>
-                    <p className="text-gray-500 text-sm">{stat.label}</p>
+                    <p className="font-heading text-4xl md:text-5xl font-medium text-dark mb-2">{stat.value}</p>
+                    <p className="text-gray-400 text-xs uppercase tracking-[0.2em]">{stat.label}</p>
                   </div>
                 ))}
               </div>
             </AnimatedSection>
 
-            <AnimatedSection direction="right" delay={0.2}>
-              <div className="relative">
-                <div className="aspect-[4/5] rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center px-8">
-                      <span className="text-7xl mb-4 block">✈️</span>
-                      <p className="font-heading text-2xl font-bold text-dark italic">
-                        &ldquo;{company.tagline}&rdquo;
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* Accent Card */}
-                <div className="absolute -bottom-6 -left-6 bg-primary text-white rounded-2xl p-6 shadow-xl shadow-primary/20">
-                  <p className="text-3xl font-bold font-heading">{company.stats[0].value}</p>
-                  <p className="text-sm text-white/80">{company.stats[0].label}</p>
-                </div>
-              </div>
-            </AnimatedSection>
           </div>
         </div>
       </section>
 
       {/* ===== Featured Services ===== */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding bg-background-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="What We Offer"
-            title="Our Premium Travel Services"
-            description="From dreamy honeymoons to thrilling adventures, we offer a full spectrum of travel services tailored to your unique needs."
+            subtitle="Curated Experiences"
+            title="Our Premium Services"
+            description="From dreamy honeymoons to thrilling adventures, we offer a full spectrum of travel services tailored solely to your unique desires."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
+            {services.slice(0, 3).map((service, i) => (
               <ServiceCard key={service.slug} service={service} index={i} />
             ))}
+          </div>
+
+          <div className="mt-16 flex justify-center">
+            <a href="/services" className="inline-flex items-center gap-3 px-8 py-3 text-sm uppercase tracking-[0.15em] font-medium text-dark border border-dark hover:bg-dark hover:text-white transition-all duration-300">
+              Explore All Services
+            </a>
           </div>
         </div>
       </section>
 
       {/* ===== Parallax Break ===== */}
       <ParallaxBanner
-        subtitle="Discover the World"
-        title="Every Journey Tells a Story"
+        subtitle="The STS Promise"
+        title="We don't just book trips, we plan your memories."
       />
 
-      {/* ===== Why Choose Us ===== */}
-      <section className="section-padding bg-white">
+      {/* ===== Destinations Inspiration (Visual Grid) ===== */}
+      <section className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
-            subtitle="Why Choose STS"
-            title="The STS Difference"
-            description="We go above and beyond to ensure every trip is flawless, memorable, and perfectly tailored to you."
+            subtitle="Destination Inspiration"
+            title="Discover the Extraordinary"
+            description="Peruse our handpicked selection of the world's most captivating locations, designed to inspire your next grand journey."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {company.whyChooseUs.map((item, i) => (
-              <AnimatedSection key={item.title} delay={i * 0.1}>
-                <div className="group p-8 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all duration-500 border border-transparent hover:border-gray-100 text-center">
-                  <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform duration-300">
-                    {item.icon}
-                  </span>
-                  <h3 className="font-heading text-lg font-bold text-dark mb-3">{item.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{item.description}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ===== Destinations / Gallery ===== */}
-      <section className="section-padding bg-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Popular Destinations"
-            title="Explore Breathtaking Places"
-            description="Discover the world's most captivating destinations, handpicked by our travel experts."
-            light
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gallery.map((item, i) => (
-              <AnimatedSection key={item.id} delay={i * 0.1}>
-                <div className="group relative aspect-[4/5] rounded-2xl overflow-hidden cursor-pointer">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-dark/30 to-accent/40 group-hover:from-primary/60 group-hover:to-accent/60 transition-all duration-500" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full w-fit mb-3">
-                      {item.tag}
-                    </span>
-                    <h3 className="font-heading text-xl font-bold text-white mb-1 group-hover:translate-y-0 transition-transform">
-                      {item.title}
-                    </h3>
-                    <p className="text-white/70 text-sm">{item.location}</p>
-                    <p className="text-white/50 text-xs mt-2 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {item.description}
-                    </p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 h-auto md:h-[600px] mt-12">
+            {destinations.map((dest, i) => (
+              <AnimatedSection
+                key={dest.id}
+                className={`group relative overflow-hidden rounded-sm bg-dark ${dest.span} min-h-[250px]`}
+                delay={i * 0.1}
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                  style={{ backgroundImage: `url(${dest.img})` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+
+                <div className="absolute bottom-0 left-0 p-8">
+                  <h3 className="font-heading text-2xl md:text-3xl text-white font-medium mb-2 tracking-wide drop-shadow-md">
+                    {dest.title}
+                  </h3>
+                  <span className="text-white/80 text-xs uppercase tracking-[0.2em] flex items-center gap-2 group-hover:text-white transition-colors">
+                    Explore <span className="w-6 h-[1px] bg-white transform origin-left group-hover:scale-x-150 transition-transform duration-300"></span>
+                  </span>
                 </div>
               </AnimatedSection>
             ))}
@@ -150,12 +145,12 @@ export default function HomePage() {
       </section>
 
       {/* ===== Testimonials ===== */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding bg-background-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             subtitle="Client Stories"
-            title="What Our Travelers Say"
-            description="Hear from the hundreds of travelers who trusted us to plan their most cherished journeys."
+            title="Voices of Our Travelers"
+            description="Hear from the astute travelers who entrusted us to orchestrate their most cherished journeys."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.slice(0, 3).map((t, i) => (
@@ -167,10 +162,11 @@ export default function HomePage() {
 
       {/* ===== Contact CTA ===== */}
       <CTASection
-        title="Ready to Plan Your Next Adventure?"
-        description="Let us craft the perfect journey for you. Reach out today and let your dream trip begin."
+        title="Ready to Begin Your Journey?"
+        description="Let us craft the perfect itinerary for you. Reach out today and let your extraordinary adventure begin."
         buttonText="Get in Touch"
         buttonHref="/contact"
+        variant="primary"
       />
     </>
   );

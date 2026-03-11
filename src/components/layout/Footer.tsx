@@ -6,41 +6,45 @@ import { company } from "@/content/company";
 
 export default function Footer() {
     return (
-        <footer className="bg-dark text-white" role="contentinfo">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <footer className="bg-dark text-white relative overflow-hidden" role="contentinfo">
+            {/* Subtle background glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
                     {/* Brand */}
-                    <div className="lg:col-span-1">
-                        <Link href="/" className="inline-block mb-4">
+                    <div className="col-span-1 lg:col-span-4 lg:pr-8">
+                        <Link href="/" className="inline-block mb-6">
                             <Image
                                 src="/logo.png"
                                 alt={`${company.name} logo`}
-                                width={140}
-                                height={56}
-                                className="h-14 w-auto brightness-110"
+                                width={160}
+                                height={64}
+                                className="h-12 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                             />
                         </Link>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                        <p className="text-gray-400 font-light text-sm leading-relaxed mb-6">
                             {company.description}
                         </p>
-                        <p className="text-accent font-heading italic text-lg">
+                        <p className="text-accent font-heading italic text-lg tracking-wide">
                             &ldquo;{company.tagline}&rdquo;
                         </p>
                     </div>
 
                     {/* Quick Links */}
-                    <div>
-                        <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
-                            Quick Links
+                    <div className="col-span-1 lg:col-span-2 lg:col-start-6">
+                        <h3 className="text-white font-medium text-xs uppercase tracking-[0.2em] mb-8">
+                            Explore
                         </h3>
-                        <ul className="space-y-3">
+                        <ul className="space-y-4">
                             {navigation.links.map((link) => (
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="text-gray-400 hover:text-white transition-colors duration-300 text-sm"
+                                        className="text-gray-400 hover:text-white transition-colors duration-300 text-sm font-light relative group inline-block"
                                     >
                                         {link.label}
+                                        <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white group-hover:w-full transition-all duration-300 ease-out"></span>
                                     </Link>
                                 </li>
                             ))}
@@ -48,40 +52,40 @@ export default function Footer() {
                     </div>
 
                     {/* Contact Info */}
-                    <div>
-                        <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
-                            Contact Us
+                    <div className="col-span-1 lg:col-span-3">
+                        <h3 className="text-white font-medium text-xs uppercase tracking-[0.2em] mb-8">
+                            Inquiries
                         </h3>
-                        <ul className="space-y-3 text-sm text-gray-400">
-                            <li className="flex items-start gap-2">
-                                <span className="mt-0.5">📍</span>
+                        <ul className="space-y-4 text-sm font-light text-gray-400">
+                            <li className="flex items-start gap-4 hover:text-white transition-colors">
+                                <span className="mt-0.5 text-accent text-opacity-80">📍</span>
                                 <span>{contact.address}, {contact.city}, {contact.country}</span>
                             </li>
-                            <li className="flex items-center gap-2">
-                                <span>📞</span>
-                                <a href={`tel:${contact.phone}`} className="hover:text-white transition-colors">
+                            <li className="flex items-center gap-4 group hover:text-white transition-colors">
+                                <span className="text-accent text-opacity-80">📞</span>
+                                <a href={`tel:${contact.phone}`}>
                                     {contact.phone}
                                 </a>
                             </li>
-                            <li className="flex items-center gap-2">
-                                <span>✉️</span>
-                                <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors">
+                            <li className="flex items-center gap-4 group hover:text-white transition-colors">
+                                <span className="text-accent text-opacity-80">✉️</span>
+                                <a href={`mailto:${contact.email}`}>
                                     {contact.email}
                                 </a>
                             </li>
-                            <li className="flex items-center gap-2">
-                                <span>🕐</span>
+                            <li className="flex items-start gap-4 mt-2 pt-2 border-t border-white/10 text-xs">
+                                <span className="text-gray-500">Hours:</span>
                                 <span>{contact.businessHours}</span>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Social Links */}
-                    <div>
-                        <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-6">
-                            Follow Us
+                    {/* Social Links & CTA */}
+                    <div className="col-span-1 lg:col-span-2">
+                        <h3 className="text-white font-medium text-xs uppercase tracking-[0.2em] mb-8">
+                            Connect
                         </h3>
-                        <div className="flex gap-3">
+                        <div className="flex gap-4 mb-10">
                             {contact.socialLinks.map((social) => (
                                 <a
                                     key={social.platform}
@@ -89,30 +93,31 @@ export default function Footer() {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={`Follow us on ${social.platform}`}
-                                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300"
+                                    className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:bg-white hover:text-dark hover:border-white transition-all duration-300"
                                 >
                                     <SocialIcon name={social.icon} />
                                 </a>
                             ))}
                         </div>
-                        <div className="mt-6">
+                        <div>
                             <Link
                                 href={navigation.ctaButton.href}
-                                className="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+                                className="relative overflow-hidden group inline-flex items-center justify-center w-full px-6 py-3 text-xs uppercase tracking-[0.1em] font-medium transition-all duration-500 border border-white/30 text-white hover:border-white"
                             >
-                                {navigation.ctaButton.label}
+                                <span className="absolute inset-0 w-full h-full bg-white -translate-x-full group-hover:translate-x-full transition-transform duration-500 ease-out z-0"></span>
+                                <span className="relative z-10 group-hover:text-dark transition-colors duration-300">{navigation.ctaButton.label}</span>
                             </Link>
                         </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-gray-500 text-sm">
+                <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p className="text-gray-500 text-xs font-light tracking-wide uppercase">
                         © {new Date().getFullYear()} {company.name}. All rights reserved.
                     </p>
-                    <p className="text-gray-600 text-xs">
-                        Crafted with ❤️ for unforgettable journeys
+                    <p className="text-gray-600 text-[10px] tracking-[0.2em] uppercase">
+                        Designed for unforgettable journeys
                     </p>
                 </div>
             </div>

@@ -18,31 +18,39 @@ export default function SectionHeader({
     light = false,
 }: SectionHeaderProps) {
     return (
-        <AnimatedSection className={`mb-12 md:mb-16 ${centered ? "text-center" : ""}`}>
+        <AnimatedSection className={`mb-16 md:mb-20 ${centered ? "text-center flex flex-col items-center" : "flex flex-col items-start"}`}>
             {subtitle && (
-                <span
-                    className={`inline-block text-sm font-semibold uppercase tracking-[0.2em] mb-3 ${light ? "text-accent-light" : "text-primary"
-                        }`}
-                >
-                    {subtitle}
-                </span>
+                <div className="flex items-center gap-4 mb-4">
+                    {!centered && <span className={`w-8 h-[1px] ${light ? "bg-accent-light" : "bg-primary"}`}></span>}
+                    <span
+                        className={`inline-block text-xs sm:text-sm font-medium uppercase tracking-[0.3em] ${light ? "text-accent-light" : "text-primary"
+                            }`}
+                    >
+                        {subtitle}
+                    </span>
+                    <span className={`w-8 h-[1px] ${light ? "bg-accent-light" : "bg-primary"}`}></span>
+                </div>
             )}
+
             <h2
-                className={`font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${light ? "text-white" : "text-dark"
+                className={`font-heading text-4xl md:text-5xl lg:text-5xl font-medium leading-tight mb-6 tracking-tight ${light ? "text-white" : "text-dark"
                     }`}
             >
                 {title}
             </h2>
+
             {description && (
                 <p
-                    className={`max-w-2xl text-base md:text-lg leading-relaxed ${centered ? "mx-auto" : ""
+                    className={`max-w-2xl text-base md:text-lg font-light leading-relaxed ${centered ? "mx-auto text-center" : "text-left"
                         } ${light ? "text-gray-300" : "text-gray-500"}`}
                 >
                     {description}
                 </p>
             )}
+
+            {/* Elegant, thin divider instead of thick gradient block */}
             <div
-                className={`mt-6 h-1 w-16 rounded-full bg-gradient-to-r from-primary to-accent ${centered ? "mx-auto" : ""
+                className={`mt-10 h-[1px] w-24 ${light ? "bg-gradient-to-r from-transparent via-white/50 to-transparent" : "bg-gradient-to-r from-transparent via-gray-300 to-transparent"} ${centered ? "mx-auto" : ""
                     }`}
             />
         </AnimatedSection>
