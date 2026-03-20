@@ -13,14 +13,14 @@ export default function Navbar() {
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        setScrolled(latest > 50);
+        setScrolled(latest > 80);
     });
 
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-700 ${scrolled
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled
                 ? "bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100"
-                : "bg-transparent backdrop-blur-none"
+                : "bg-transparent backdrop-blur-none border-b border-transparent shadow-none"
                 }`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
@@ -30,16 +30,14 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-24 transition-all duration-500">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3 group" aria-label={`${company.name} - Home`}>
-                        <div className="relative overflow-hidden">
-                            <Image
-                                src="/logo.png"
-                                alt={`${company.name} logo`}
-                                width={140}
-                                height={56}
-                                className={`h-10 sm:h-12 w-auto transition-all duration-500 ${scrolled ? "opacity-100" : "brightness-[100] drop-shadow-md"}`}
-                                priority
-                            />
-                        </div>
+                        <Image
+                            src="/logo.png"
+                            alt={`${company.name} logo`}
+                            width={120}
+                            height={120}
+                            className="h-14 sm:h-16 w-auto transition-all duration-500 drop-shadow-md"
+                            priority
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -58,8 +56,8 @@ export default function Navbar() {
                         <Link
                             href={navigation.ctaButton.href}
                             className={`relative overflow-hidden group inline-flex items-center gap-2 px-8 py-3 text-xs uppercase tracking-[0.15em] font-medium transition-all duration-500 border ${scrolled
-                                    ? "bg-primary text-white border-primary hover:shadow-[0_0_20px_rgba(178,31,36,0.3)]"
-                                    : "bg-white/10 text-white border-white/30 backdrop-blur-sm hover:border-white"
+                                ? "bg-primary text-white border-primary hover:shadow-[0_0_20px_rgba(178,31,36,0.3)]"
+                                : "bg-white/10 text-white border-white/30 backdrop-blur-sm hover:border-white"
                                 }`}
                         >
                             <span className={`absolute inset-0 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out z-0 ${scrolled ? "bg-dark" : "bg-white/20"}`}></span>

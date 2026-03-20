@@ -17,14 +17,14 @@ export interface ContactInfo {
 }
 
 export const contact: ContactInfo = {
-    phone: "+91 98765 43210",
-    email: "info@sarikastravelsolutions.com",
-    whatsapp: "+919876543210",
-    address: "123 Travel Plaza, MG Road",
+    phone: "+91 98200 12345",
+    email: "concierge@sarikastravelsolutions.com",
+    whatsapp: "+919820012345",
+    address: "Level 4, The Imperial Plaza, Colaba",
     city: "Mumbai",
     country: "India",
     mapEmbedUrl: "",
-    businessHours: "Mon – Sat: 9:00 AM – 7:00 PM",
+    businessHours: "Mon – Fri: 10:00 AM – 6:00 PM (By Appointment Only)",
     socialLinks: [
         {
             platform: "Instagram",

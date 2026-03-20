@@ -18,88 +18,88 @@ export interface CompanyInfo {
 export const company: CompanyInfo = {
     name: "STS – Sarika's Travel Solutions",
     shortName: "STS",
-    tagline: "We plan your memories",
+    tagline: "Curating your world, one extraordinary journey at a time.",
     description:
-        "At Sarika's Travel Solutions, we craft unforgettable journeys tailored to your dreams. From exotic getaways to cultural immersions, every trip we plan is a masterpiece of personalized travel.",
+        "We are artisans of travel. At STS, we design bespoke itineraries tailored to the rhythm of your life, transforming fleeting moments into enduring legacies.",
     longDescription:
-        "Founded with a passion for creating extraordinary travel experiences, STS – Sarika's Travel Solutions has grown into a trusted name in premium travel planning. We believe that travel is more than just visiting places — it's about creating memories that last a lifetime. Our dedicated team works tirelessly to understand your desires, preferences, and dreams, transforming them into seamless, luxurious travel experiences that exceed expectations.",
+        "Founded with an uncompromising passion for discovery, STS – Sarika's Travel Solutions has established itself as a premier boutique travel consultancy. We recognize that true luxury lies in the details—the seamless transfers, the exclusive access, the intuitive understanding of your unique preferences. Our dedicated team of global travel designers works intimately with you to craft seamless, transformative journeys that transcend the ordinary and redefine how you experience the world.",
     foundedYear: 2015,
     founderName: "Sarika",
-    founderTitle: "Founder & Lead Travel Consultant",
+    founderTitle: "Founder & Principal Travel Designer",
     founderStory:
-        "With over a decade of experience in the travel industry, Sarika founded STS with a simple yet powerful vision: to make every journey personal, memorable, and stress-free. Her deep knowledge of destinations worldwide, combined with an unwavering commitment to client satisfaction, has made STS the go-to agency for discerning travelers who seek more than just a vacation — they seek an experience.",
+        "With a background steeped in global exploration and luxury hospitality, Sarika founded STS with a distinct vision: to elevate travel from a mere transaction to a deeply personal art form. Her extensive global network and insider knowledge of the world's most sought-after destinations have made STS the trusted advisor for discerning travelers, distinguished executives, and families seeking white-glove service and unparalleled discretion.",
     mission:
-        "To transform travel dreams into reality by delivering meticulously planned, personalized journeys that create lasting memories and exceed every expectation.",
+        "To orchestrate flawless, transformative travel experiences through meticulous planning, exclusive global partnerships, and an intuitive understanding of our clients' desires.",
     vision:
-        "To be the most trusted and sought-after travel consultancy, known for crafting life-enriching travel experiences with unmatched attention to detail and care.",
+        "To remain the definitive choice in luxury travel design, where every customized itinerary sets a new standard for personalization, elegance, and awe.",
     values: [
         {
-            title: "Personalization",
+            title: "Bespoke Design",
             description:
-                "Every itinerary is uniquely crafted to match your travel style, preferences, and budget.",
+                "Every itinerary we create is a unique masterpiece, tailored precisely to your discerning tastes and unspoken preferences.",
             icon: "✦",
         },
         {
-            title: "Excellence",
+            title: "Unrivaled Access",
             description:
-                "We hold ourselves to the highest standards in every aspect of travel planning and service.",
+                "Through our global network, we unlock doors that remain closed to the public, offering you true exclusivity.",
             icon: "★",
         },
         {
-            title: "Trust",
+            title: "Discretion & Trust",
             description:
-                "Built on transparency, reliability, and genuine care for every client relationship.",
+                "We provide absolute privacy and seamless execution, ensuring your peace of mind from departure to safe return.",
             icon: "♥",
         },
         {
-            title: "Passion",
+            title: "Anticipatory Service",
             description:
-                "Our love for travel drives us to discover the best experiences and share them with you.",
+                "We pride ourselves on anticipating your needs before they arise, delivering a frictionless luxury experience.",
             icon: "✈",
         },
     ],
     whyChooseUs: [
         {
-            title: "Tailor-Made Itineraries",
+            title: "White-Glove Curation",
             description:
-                "No cookie-cutter packages. Every trip is designed specifically around your preferences, interests, and budget.",
+                "No pre-packaged tours. We design your journey from a blank canvas, ensuring it is as magnificent as you envisioned.",
             icon: "🗺️",
         },
         {
-            title: "Expert Destination Knowledge",
+            title: "Insider Knowledge",
             description:
-                "Our team has first-hand experience with destinations worldwide, ensuring authentic recommendations.",
+                "Our travel designers personally vet properties and experiences to guarantee uncompromising quality.",
             icon: "🌍",
         },
         {
-            title: "24/7 Travel Support",
+            title: "24/7 Global Concierge",
             description:
-                "From planning to your return home, we're always just a call away to assist with anything you need.",
+                "Enjoy the ultimate luxury of peace of mind, knowing our elite concierge team is overseeing every facet of your trip.",
             icon: "📞",
         },
         {
-            title: "Best Value Guaranteed",
+            title: "VIP Perks & Upgrades",
             description:
-                "We leverage strong industry partnerships to offer you premium experiences at the best possible prices.",
+                "Leverage our prestigious industry affiliations for complimentary room upgrades, exclusive amenities, and priority access.",
             icon: "💎",
         },
         {
-            title: "Hassle-Free Planning",
+            title: "Flawless Execution",
             description:
-                "We handle every detail — flights, hotels, transfers, activities — so you can focus on enjoying the journey.",
+                "From private aviation charters to exclusive dining reservations, we orchestrate the complex logistics entirely behind the scenes.",
             icon: "✅",
         },
         {
-            title: "Trusted by Hundreds",
+            title: "Enduring Relationships",
             description:
-                "Our growing community of happy travelers speaks to the quality and care we put into every trip.",
+                "We don't just plan trips; we build lifelong understandings of our clients' evolving travel aspirations.",
             icon: "⭐",
         },
     ],
     stats: [
-        { label: "Happy Travelers", value: "2,500+" },
-        { label: "Destinations Covered", value: "80+" },
-        { label: "Years of Experience", value: "10+" },
-        { label: "Client Satisfaction", value: "99%" },
+        { label: "Bespoke Itineraries Delivered", value: "2,500+" },
+        { label: "Countries Explored", value: "80+" },
+        { label: "Years of Excellence", value: "10+" },
+        { label: "Client Retention", value: "98%" },
     ],
 };

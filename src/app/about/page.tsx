@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import HeroSection from "@/components/sections/HeroSection";
 import CTASection from "@/components/sections/CTASection";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -27,18 +28,20 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         <AnimatedSection>
                             <div className="relative">
-                                <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 overflow-hidden flex items-center justify-center">
-                                    <div className="text-center p-8">
-                                        <span className="text-8xl block mb-4">🌏</span>
-                                        <p className="font-heading text-xl font-bold text-dark">
+                                <div className="aspect-[4/5] rounded-2xl bg-gray-100 overflow-hidden relative shadow-2xl">
+                                    {/* Placeholder for Founder Image. The user can drop a real image here. */}
+                                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-80 mix-blend-multiply transition-all duration-700 hover:grayscale-0 hover:opacity-100"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div className="absolute bottom-0 left-0 p-8">
+                                        <p className="font-heading text-2xl font-bold text-white mb-1">
                                             {company.founderName}
                                         </p>
-                                        <p className="text-gray-500 text-sm">{company.founderTitle}</p>
+                                        <p className="text-white/80 text-sm uppercase tracking-widest">{company.founderTitle}</p>
                                     </div>
                                 </div>
-                                <div className="absolute -bottom-4 -right-4 bg-accent text-white rounded-2xl p-5 shadow-xl">
-                                    <p className="font-heading text-2xl font-bold">{company.stats[2].value}</p>
-                                    <p className="text-sm text-white/80">{company.stats[2].label}</p>
+                                <div className="absolute -bottom-6 -right-6 bg-white border border-gray-100 rounded-2xl p-6 shadow-xl max-w-[200px]">
+                                    <p className="font-heading text-3xl font-bold text-dark">{company.stats[2].value}</p>
+                                    <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">{company.stats[2].label}</p>
                                 </div>
                             </div>
                         </AnimatedSection>
@@ -70,21 +73,17 @@ export default function AboutPage() {
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                         <AnimatedSection>
-                            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
-                                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                                    <span className="text-3xl">🎯</span>
-                                </div>
-                                <h3 className="font-heading text-xl font-bold text-dark mb-4">Our Mission</h3>
-                                <p className="text-gray-500 leading-relaxed">{company.mission}</p>
+                            <div className="bg-white rounded-2xl p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 h-full flex flex-col justify-center">
+                                <span className="text-primary font-heading text-4xl mb-6 block opacity-80">01</span>
+                                <h3 className="font-heading text-2xl font-bold text-dark mb-4">Our Mission</h3>
+                                <p className="text-gray-500 leading-relaxed text-lg">{company.mission}</p>
                             </div>
                         </AnimatedSection>
                         <AnimatedSection delay={0.15}>
-                            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
-                                <div className="w-14 h-14 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
-                                    <span className="text-3xl">🔭</span>
-                                </div>
-                                <h3 className="font-heading text-xl font-bold text-dark mb-4">Our Vision</h3>
-                                <p className="text-gray-500 leading-relaxed">{company.vision}</p>
+                            <div className="bg-dark rounded-2xl p-10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-dark h-full flex flex-col justify-center">
+                                <span className="text-accent font-heading text-4xl mb-6 block opacity-80">02</span>
+                                <h3 className="font-heading text-2xl font-bold text-white mb-4">Our Vision</h3>
+                                <p className="text-gray-300 leading-relaxed text-lg">{company.vision}</p>
                             </div>
                         </AnimatedSection>
                     </div>

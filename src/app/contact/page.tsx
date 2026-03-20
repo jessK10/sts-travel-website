@@ -140,19 +140,21 @@ export default function ContactPage() {
             </section>
 
             {/* Map Placeholder */}
-            <section className="bg-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <section className="bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                     <AnimatedSection>
-                        <div className="relative aspect-[21/9] rounded-2xl overflow-hidden bg-gray-200">
+                        <div className="relative aspect-[21/9] md:aspect-[21/7] rounded-none md:rounded-3xl overflow-hidden bg-dark shadow-2xl">
+                            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity"></div>
                             <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="text-center">
-                                    <span className="text-5xl block mb-3">🗺️</span>
-                                    <p className="text-gray-500 text-sm font-medium">
-                                        Map will be integrated here
+                                <div className="text-center bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl max-w-sm w-full mx-4">
+                                    <span className="text-3xl block mb-4">📍</span>
+                                    <p className="text-white text-lg font-heading font-medium tracking-wide">
+                                        Our Private Office
                                     </p>
-                                    <p className="text-gray-400 text-xs mt-1">
-                                        {contact.address}, {contact.city}, {contact.country}
+                                    <p className="text-gray-300 text-sm tracking-widest uppercase mt-2">
+                                        {contact.address}, {contact.city}
                                     </p>
+                                    <p className="text-accent text-xs mt-4 tracking-widest uppercase">By Appointment Only</p>
                                 </div>
                             </div>
                         </div>

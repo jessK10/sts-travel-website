@@ -1,12 +1,11 @@
-import HeroSection from "@/components/sections/HeroSection";
+import HeroParallax from "@/components/sections/HeroParallax";
 import CTASection from "@/components/sections/CTASection";
 import ParallaxBanner from "@/components/sections/ParallaxBanner";
+import ServicesSection from "@/components/sections/ServicesSection";
 import SectionHeader from "@/components/ui/SectionHeader";
-import ServiceCard from "@/components/ui/ServiceCard";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { company } from "@/content/company";
-import { services } from "@/content/services";
 import { testimonials } from "@/content/testimonials";
 
 // Fallback high-quality destination images for the visual grid
@@ -20,8 +19,8 @@ const destinations = [
 export default function HomePage() {
   return (
     <>
-      {/* ===== Hero ===== */}
-      <HeroSection
+      {/* ===== Cinematic Parallax Hero ===== */}
+      <HeroParallax
         subtitle={company.tagline}
         title="Craft Your Perfect Journey With Us"
         description={company.description}
@@ -80,27 +79,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== Featured Services ===== */}
-      <section className="section-padding bg-background-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            subtitle="Curated Experiences"
-            title="Our Premium Services"
-            description="From dreamy honeymoons to thrilling adventures, we offer a full spectrum of travel services tailored solely to your unique desires."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10">
-            {services.slice(0, 3).map((service, i) => (
-              <ServiceCard key={service.slug} service={service} index={i} />
-            ))}
-          </div>
-
-          <div className="mt-16 flex justify-center">
-            <a href="/services" className="inline-flex items-center gap-3 px-8 py-3 text-sm uppercase tracking-[0.15em] font-medium text-dark border border-dark hover:bg-dark hover:text-white transition-all duration-300">
-              Explore All Services
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* ===== Our Services ===== */}
+      <ServicesSection />
 
       {/* ===== Parallax Break ===== */}
       <ParallaxBanner
