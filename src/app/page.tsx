@@ -1,4 +1,4 @@
-import HeroParallax from "@/components/sections/HeroParallax";
+import HeroSlider from "@/components/hero/HeroSlider";
 import CTASection from "@/components/sections/CTASection";
 import ParallaxBanner from "@/components/sections/ParallaxBanner";
 import ServicesSection from "@/components/sections/ServicesSection";
@@ -7,6 +7,7 @@ import TestimonialCard from "@/components/ui/TestimonialCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { company } from "@/content/company";
 import { testimonials } from "@/content/testimonials";
+import { fetchHeroSlides } from "@/lib/sanity/queries";
 
 // Fallback high-quality destination images for the visual grid
 const destinations = [
@@ -16,19 +17,15 @@ const destinations = [
   { id: 4, title: "Maldives", img: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=2065&auto=format&fit=crop", span: "md:col-span-2 md:row-span-1" },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const slides = await fetchHeroSlides();
+
   return (
     <>
-      {/* ===== Cinematic Parallax Hero ===== */}
-      <HeroParallax
-        subtitle={company.tagline}
-        title="Craft Your Perfect Journey With Us"
-        description={company.description}
-        ctaPrimary={{ label: "Start Planning", href: "/contact" }}
-        ctaSecondary={{ label: "Our Services", href: "/services" }}
-      />
+      {/* ===== 1. Featured Offers Hero ===== */}
+      <HeroSlider slides={slides} />
 
-      {/* ===== Brand Introduction (Editorial Style) ===== */}
+      {/* ===== 2. Brand Introduction (Editorial Style) ===== */}
       <section className="section-padding bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -79,16 +76,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== Our Services ===== */}
+      {/* ===== 3. Our Services ===== */}
       <ServicesSection />
 
-      {/* ===== Parallax Break ===== */}
+      {/* ===== 4. The STS Promise ===== */}
       <ParallaxBanner
         subtitle="The STS Promise"
         title="We don't just book trips, we plan your memories."
       />
 
-      {/* ===== Destinations Inspiration (Visual Grid) ===== */}
+      {/* ===== 5. Destinations Inspiration (Visual Grid) ===== */}
       <section className="py-24 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -124,7 +121,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== Testimonials ===== */}
+      {/* ===== 6. Testimonials ===== */}
       <section className="section-padding bg-background-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -140,7 +137,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== Contact CTA ===== */}
+      {/* ===== 7. Contact CTA ===== */}
       <CTASection
         title="Ready to Begin Your Journey?"
         description="Let us craft the perfect itinerary for you. Reach out today and let your extraordinary adventure begin."

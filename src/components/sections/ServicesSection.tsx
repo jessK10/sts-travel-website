@@ -96,7 +96,7 @@ const headerLine = {
   hidden: { scaleX: 0 },
   visible: {
     scaleX: 1,
-    transition: { duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
