@@ -18,80 +18,117 @@ export default function Navbar() {
 
     return (
         <motion.header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled
-                ? "bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100"
-                : "bg-transparent backdrop-blur-none border-b border-transparent shadow-none"
-                }`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+                scrolled
+                    ? "bg-white/80 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.05)] border-b border-white/20"
+                    : "bg-transparent"
+            }`}
             initial={{ y: -100 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-                <div className="flex items-center justify-between h-24 transition-all duration-500">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group" aria-label={`${company.name} - Home`}>
-                        <Image
-                            src="/logo.png"
-                            alt={`${company.name} logo`}
-                            width={120}
-                            height={120}
-                            className="h-14 sm:h-16 w-auto transition-all duration-500 drop-shadow-md"
-                            priority
-                        />
-                    </Link>
+            <nav className="w-full px-6 lg:px-8" aria-label="Main navigation">
+                <div className="flex items-center justify-between h-20">
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden lg:flex items-center gap-10">
+                    {/* LOGO + PARTNER LOGOS (UPDATED HERE) */}
+                    <div className="flex items-center gap-5">
+                        <Link href="/" className="flex items-center gap-3 group">
+                            <Image
+                                src="/logo.png"
+                                alt={`${company.name} logo`}
+                                width={220}
+                                height={200}
+                                className="h-16 sm:h-20 w-auto object-contain transition-all duration-500 group-hover:scale-105"
+                                priority
+                            />
+                        </Link>
+
+                        {/* Divider */}
+                        <div className="hidden sm:block h-10 w-[1px] bg-white/30"></div>
+
+                        {/* Title */}
+                        <p className="text-sm md:text-base font-semibold text-white/80 tracking-wide">
+                            Members of:
+                        </p>
+
+                        {/* Partner Logos */}
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <Image
+                                src="/teak.png"
+                                alt="TEAK"
+                                width={100}
+                                height={40}
+                                className="h-8 sm:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition"
+                            />
+                            <Image
+                                src="/iatte.png"
+                                alt="IATTE"
+                                width={100}
+                                height={40}
+                                className="h-8 sm:h-10 w-auto object-contain opacity-80 hover:opacity-100 transition"
+                            />
+                        </div>
+                    </div>
+
+                    {/* DESKTOP NAV */}
+                    <div className="hidden lg:flex items-center gap-8">
                         {navigation.links.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className={`group relative text-xs uppercase tracking-[0.2em] font-medium transition-colors duration-500 py-2 ${scrolled ? "text-dark hover:text-primary" : "text-white/90 hover:text-white"
-                                    }`}
+                                className={`group relative text-sm font-medium transition-all duration-300 ${
+                                    scrolled
+                                        ? "text-gray-800 hover:text-primary"
+                                        : "text-white/90 hover:text-white"
+                                }`}
                             >
                                 {link.label}
-                                <span className={`absolute bottom-0 left-0 w-full h-[1px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${scrolled ? "bg-primary" : "bg-white"}`}></span>
+
+                                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
                             </Link>
                         ))}
+
+                        {/* CTA BUTTON */}
                         <Link
                             href={navigation.ctaButton.href}
-                            className={`relative overflow-hidden group inline-flex items-center gap-2 px-8 py-3 text-xs uppercase tracking-[0.15em] font-medium transition-all duration-500 border ${scrolled
-                                ? "bg-primary text-white border-primary hover:shadow-[0_0_20px_rgba(178,31,36,0.3)]"
-                                : "bg-white/10 text-white border-white/30 backdrop-blur-sm hover:border-white"
-                                }`}
+                            className={`inline-flex items-center px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 ${
+                                scrolled
+                                    ? "bg-primary text-white shadow-lg hover:shadow-xl hover:scale-105"
+                                    : "bg-white/10 text-white backdrop-blur-md border border-white/20 hover:bg-white/20"
+                            }`}
                         >
-                            <span className={`absolute inset-0 w-full h-full -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out z-0 ${scrolled ? "bg-dark" : "bg-white/20"}`}></span>
-                            <span className="relative z-10">{navigation.ctaButton.label}</span>
+                            {navigation.ctaButton.label}
                         </Link>
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* MOBILE BUTTON */}
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-50 group"
-                        aria-label="Toggle mobile menu"
-                        aria-expanded={mobileOpen}
+                        className="lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-50"
                     >
                         <span
-                            className={`block w-6 h-[1px] transition-all duration-300 ${scrolled || mobileOpen ? "bg-dark" : "bg-white"
-                                } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
+                            className={`block w-6 h-[2px] transition-all duration-300 ${
+                                scrolled || mobileOpen ? "bg-dark" : "bg-white"
+                            } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
                         />
                         <span
-                            className={`block w-4 h-[1px] transition-all duration-300 ml-auto group-hover:w-6 ${scrolled || mobileOpen ? "bg-dark" : "bg-white"
-                                } ${mobileOpen ? "opacity-0" : ""}`}
+                            className={`block w-5 h-[2px] transition-all duration-300 ${
+                                scrolled || mobileOpen ? "bg-dark" : "bg-white"
+                            } ${mobileOpen ? "opacity-0" : ""}`}
                         />
                         <span
-                            className={`block w-6 h-[1px] transition-all duration-300 ${scrolled || mobileOpen ? "bg-dark" : "bg-white"
-                                } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
+                            className={`block w-6 h-[2px] transition-all duration-300 ${
+                                scrolled || mobileOpen ? "bg-dark" : "bg-white"
+                            } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
                         />
                     </button>
                 </div>
 
-                {/* Mobile Menu */}
+                {/* MOBILE MENU */}
                 <motion.div
                     initial={false}
                     animate={mobileOpen ? { height: "100vh", opacity: 1 } : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+                    transition={{ duration: 0.5 }}
                     className="lg:hidden overflow-hidden absolute top-0 left-0 w-full bg-white backdrop-blur-3xl"
                 >
                     <div className="flex flex-col items-center justify-center h-full space-y-8 pb-32">
@@ -100,18 +137,18 @@ export default function Navbar() {
                                 key={link.href}
                                 href={link.href}
                                 onClick={() => setMobileOpen(false)}
-                                className="text-2xl font-heading text-dark hover:text-primary transition-colors duration-300"
+                                className="text-2xl font-medium text-dark hover:text-primary"
                             >
                                 {link.label}
                             </Link>
                         ))}
+
                         <Link
                             href={navigation.ctaButton.href}
                             onClick={() => setMobileOpen(false)}
-                            className="mt-8 relative overflow-hidden group inline-flex items-center gap-2 px-10 py-4 text-sm uppercase tracking-[0.15em] font-medium transition-all duration-500 bg-primary text-white border border-primary"
+                            className="mt-6 px-10 py-4 rounded-full bg-primary text-white text-sm font-medium shadow-lg"
                         >
-                            <span className="absolute inset-0 w-full h-full bg-dark -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out z-0"></span>
-                            <span className="relative z-10">{navigation.ctaButton.label}</span>
+                            {navigation.ctaButton.label}
                         </Link>
                     </div>
                 </motion.div>

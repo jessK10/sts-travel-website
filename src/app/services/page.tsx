@@ -21,7 +21,9 @@ export default function ServicesPage() {
             />
 
             {/* Services */}
-            <ServicesSection />
+            <div className="relative z-20 -mt-16 md:-mt-32 rounded-t-[2rem] shadow-[0_-10px_60px_rgba(0,0,0,0.15)] overflow-hidden bg-white">
+                <ServicesSection />
+            </div>
 
             {/* CTA */}
             <CTASection

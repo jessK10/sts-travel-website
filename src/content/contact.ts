@@ -17,29 +17,24 @@ export interface ContactInfo {
 }
 
 export const contact: ContactInfo = {
-    phone: "+91 98200 12345",
-    email: "concierge@sarikastravelsolutions.com",
-    whatsapp: "+919820012345",
-    address: "Level 4, The Imperial Plaza, Colaba",
-    city: "Mumbai",
+    phone: "+91 99249 33880",
+    email: "ststravels07@gmail.com",
+    whatsapp: "+919924933880",
+    address: "1305, Shivalik Shilp, Iscon Cross Road, S.G. Highway",
+    city: "Ahmedabad, Gujarat - 380015",
     country: "India",
     mapEmbedUrl: "",
     businessHours: "Mon – Fri: 10:00 AM – 6:00 PM (By Appointment Only)",
     socialLinks: [
         {
             platform: "Instagram",
-            url: "https://instagram.com/sarikastravelsolutions",
+            url: "https://www.instagram.com/ststravels_memories?igsh=aHNjenltMnhzd3lm",
             icon: "instagram",
         },
         {
             platform: "Facebook",
-            url: "https://facebook.com/sarikastravelsolutions",
+            url: "https://www.facebook.com/share/14XE4vaHb3k/?mibextid=wwXIfr",
             icon: "facebook",
-        },
-        {
-            platform: "WhatsApp",
-            url: "https://wa.me/919876543210",
-            icon: "whatsapp",
         },
         {
             platform: "LinkedIn",

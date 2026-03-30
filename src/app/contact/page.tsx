@@ -2,16 +2,29 @@ import { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
 import ContactForm from "@/components/sections/ContactForm";
 import SectionHeader from "@/components/ui/SectionHeader";
+import DynamicContactHeading from "@/components/sections/DynamicContactHeading";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { contact } from "@/content/contact";
-import { company } from "@/content/company";
+export async function generateMetadata(): Promise<Metadata> {
+    const company = {
+        name: "STS Travel",
+    };
+    return {
+        title: "Contact Us",
+        description: `Get in touch with ${company.name}. Call, email, or WhatsApp us to start planning your dream journey today.`,
+    };
+}
 
-export const metadata: Metadata = {
-    title: "Contact Us",
-    description: `Get in touch with ${company.name}. Call, email, or WhatsApp us to start planning your dream journey today.`,
-};
-
-export default function ContactPage() {
+export default async function ContactPage() {
+    const contact = {
+        phone: "+91 99249 33880",
+        email: "ststravels07@gmail.com",
+        whatsapp: "+919924933880",
+        address: "1305, Shivalik Shilp, Iscon Cross Road, S.G. Highway",
+        city: "Ahmedabad, Gujarat - 380015",
+        country: "India",
+        businessHours: "Mon–Sat: 9AM–7PM",
+        socialLinks: [],
+    };
     return (
         <>
             {/* Hero */}
@@ -23,16 +36,12 @@ export default function ContactPage() {
             />
 
             {/* Contact Section */}
-            <section className="section-padding bg-white">
+            <section className="section-padding bg-white relative z-20 -mt-16 md:-mt-32 rounded-t-[2rem] shadow-[0_-10px_60px_rgba(0,0,0,0.15)]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
                         {/* Form */}
                         <div className="lg:col-span-3">
-                            <SectionHeader
-                                subtitle="Send Us a Message"
-                                title="Tell Us About Your Dream Trip"
-                                centered={false}
-                            />
+                            <DynamicContactHeading />
                             <ContactForm />
                         </div>
 
@@ -118,7 +127,7 @@ export default function ContactPage() {
                                     <div className="pt-4">
                                         <p className="text-sm font-semibold text-dark mb-3">Follow Us</p>
                                         <div className="flex gap-3">
-                                            {contact.socialLinks.map((social) => (
+                                            {contact.socialLinks.map((social: any) => (
                                                 <a
                                                     key={social.platform}
                                                     href={social.url}

@@ -42,7 +42,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             />
 
             {/* Service Detail */}
-            <section className="section-padding bg-white">
+            <section className="section-padding bg-white relative z-20 -mt-16 md:-mt-32 rounded-t-[2rem] shadow-[0_-10px_60px_rgba(0,0,0,0.15)]">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <AnimatedSection>
                         <div className="text-center">

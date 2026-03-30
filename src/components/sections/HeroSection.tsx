@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -30,15 +30,6 @@ export default function HeroSection({
     const heroRef = useRef<HTMLDivElement>(null);
     const bgRef = useRef<HTMLDivElement>(null);
     const splitTextRef = useRef<HTMLHeadingElement>(null);
-
-    // Subtle parallax for the inner content via Framer Motion
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"],
-    });
-
-    const yContent = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-    const opacityContent = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     useEffect(() => {
         if (!bgRef.current || !heroRef.current) return;
@@ -105,9 +96,8 @@ export default function HeroSection({
             )}
 
             {/* Content Container */}
-            <motion.div
+            <div
                 className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full flex flex-col items-center text-center mt-12"
-                style={{ y: yContent, opacity: opacityContent }}
             >
                 <div className="max-w-4xl flex flex-col items-center">
                     {/* Subtitle */}
@@ -176,10 +166,13 @@ export default function HeroSection({
                         )}
                     </motion.div>
                 </div>
-            </motion.div>
+            </div>
 
-            {/* Bottom transition gradient (fade to off-white/cream if not dark mode) */}
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background-cream to-transparent z-10 pointer-events-none" />
+            {/* Cinematic bottom fade overlay — smooth dark blend into the next section */}
+            <div className="absolute inset-0 z-[5] pointer-events-none">
+                <div className="absolute bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/90 to-transparent" />
+            </div>
 
             {/* Premium scroll indicator */}
             {fullScreen && (

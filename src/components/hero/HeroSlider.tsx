@@ -9,10 +9,15 @@ import {
 } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import type { HeroSlide } from "@/lib/sanity/types";
+
+type Slide = {
+  title: string;
+  image: string;
+  [key: string]: any;
+};
 
 interface HeroSliderProps {
-  slides: HeroSlide[];
+  slides: Slide[];
 }
 
 const AUTOPLAY_INTERVAL = 3000;
@@ -165,6 +170,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           />
         </motion.div>
       </AnimatePresence>
+
+      {/* ═══════════ Cinematic bottom fade overlay ═══════════ */}
+      <div className="absolute inset-0 z-[5] pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-full h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/90 to-transparent" />
+      </div>
 
       {/* ═══════════ Content ═══════════ */}
       <div className="relative z-10 flex h-full items-center">

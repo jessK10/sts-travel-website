@@ -10,7 +10,7 @@ export default function Footer() {
             {/* Subtle background glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24 relative z-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 lg:pt-20 lg:pb-10 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
                     {/* Brand */}
                     <div className="col-span-1 lg:col-span-4 lg:pr-8">
@@ -18,7 +18,7 @@ export default function Footer() {
                             <Image
                                 src="/logo.png"
                                 alt={`${company.name} logo`}
-                                width={160}
+                                width={170}
                                 height={64}
                                 className="h-12 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                             />
@@ -112,7 +112,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="mt-9 pt-5 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-gray-500 text-xs font-light tracking-wide uppercase">
                         © {new Date().getFullYear()} {company.name}. All rights reserved.
                     </p>

@@ -1,13 +1,14 @@
-import HeroSlider from "@/components/hero/HeroSlider";
 import CTASection from "@/components/sections/CTASection";
 import ParallaxBanner from "@/components/sections/ParallaxBanner";
 import ServicesSection from "@/components/sections/ServicesSection";
+import OffersSlider from "@/components/sections/OffersSlider";
 import SectionHeader from "@/components/ui/SectionHeader";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { company } from "@/content/company";
 import { testimonials } from "@/content/testimonials";
-import { fetchHeroSlides } from "@/lib/sanity/queries";
+import { offers } from "@/content/offers";
+import { services } from "@/content/services";
 
 // Fallback high-quality destination images for the visual grid
 const destinations = [
@@ -18,16 +19,25 @@ const destinations = [
 ];
 
 export default async function HomePage() {
-  const slides = await fetchHeroSlides();
-
   return (
-    <>
-      {/* ===== 1. Featured Offers Hero ===== */}
-      <HeroSlider slides={slides} />
+    <div className="bg-dark/95">
+      {/* ===== 1. Curated Travel Experiences (Dynamic Offers Hero) ===== */}
+      {/* Sticky Hero Container stays pinned while the rest of the page slides up */}
+      <div className="sticky top-0 z-0 h-screen w-full">
+        <OffersSlider offers={offers} />
+      </div>
 
-      {/* ===== 2. Brand Introduction (Editorial Style) ===== */}
-      <section className="section-padding bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* White content sheet — slides up over the sticky hero as you scroll */}
+      <div className="relative z-10 bg-white rounded-t-[2rem] shadow-[0_-16px_80px_rgba(0,0,0,0.35)] -mt-[6vh] overflow-hidden pb-10">
+        
+        {/* Drag handle hint line (from your JSX reference) */}
+        <div className="flex justify-center pt-6 pb-2">
+          <div className="w-10 h-1 rounded-full bg-black/10" />
+        </div>
+
+        {/* ===== 3. Brand Introduction (Editorial Style) ===== */}
+        <section className="section-padding relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
             <AnimatedSection className="order-2 lg:order-1 relative">
@@ -145,6 +155,8 @@ export default async function HomePage() {
         buttonHref="/contact"
         variant="primary"
       />
-    </>
+      
+      </div> {/* End of sliding content sheet */}
+    </div>
   );
 }

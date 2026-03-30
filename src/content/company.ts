@@ -24,7 +24,7 @@ export const company: CompanyInfo = {
     longDescription:
         "Founded with an uncompromising passion for discovery, STS – Sarika's Travel Solutions has established itself as a premier boutique travel consultancy. We recognize that true luxury lies in the details—the seamless transfers, the exclusive access, the intuitive understanding of your unique preferences. Our dedicated team of global travel designers works intimately with you to craft seamless, transformative journeys that transcend the ordinary and redefine how you experience the world.",
     foundedYear: 2015,
-    founderName: "Sarika",
+    founderName: "Sarika Jodhani",
     founderTitle: "Founder & Principal Travel Designer",
     founderStory:
         "With a background steeped in global exploration and luxury hospitality, Sarika founded STS with a distinct vision: to elevate travel from a mere transaction to a deeply personal art form. Her extensive global network and insider knowledge of the world's most sought-after destinations have made STS the trusted advisor for discerning travelers, distinguished executives, and families seeking white-glove service and unparalleled discretion.",

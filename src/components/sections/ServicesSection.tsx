@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 /* ─── Data ─── */
 
@@ -25,50 +26,42 @@ interface ServiceItem {
 const services: ServiceItem[] = [
   {
     title: "Hotel Booking",
-    description:
-      "Handpicked luxury stays and boutique hotels tailored to your comfort and style.",
+    description: "Handpicked luxury stays and boutique hotels tailored to your comfort and style.",
     icon: Hotel,
   },
   {
     title: "Domestic / International Tour",
-    description:
-      "Curated tour packages across India and the world — crafted for every kind of traveller.",
+    description: "Curated tour packages across India and the world — crafted for every kind of traveller.",
     icon: Globe,
   },
   {
     title: "Air Ticket / Visa",
-    description:
-      "Hassle-free flight reservations and end-to-end visa assistance for any destination.",
+    description: "Hassle-free flight reservations and end-to-end visa assistance for any destination.",
     icon: Plane,
   },
   {
     title: "Passport / Forex",
-    description:
-      "Swift passport services and competitive forex rates to keep your journey seamless.",
+    description: "Swift passport services and competitive forex rates to keep your journey seamless.",
     icon: BookOpen,
   },
   {
     title: "Car Rental",
-    description:
-      "Premium chauffeur-driven and self-drive rentals for intercity or local travel.",
+    description: "Premium chauffeur-driven and self-drive rentals for intercity or local travel.",
     icon: Car,
   },
   {
     title: "Overseas Insurance",
-    description:
-      "Comprehensive travel insurance plans so you explore the world with complete peace of mind.",
+    description: "Comprehensive travel insurance plans so you explore the world with complete peace of mind.",
     icon: ShieldCheck,
   },
   {
     title: "M.I.C.E.",
-    description:
-      "Meetings, incentives, conferences & exhibitions — planned and executed flawlessly.",
+    description: "Meetings, incentives, conferences & exhibitions — planned and executed flawlessly.",
     icon: CalendarRange,
   },
   {
     title: "FIT / GIT Booking",
-    description:
-      "Flexible individual and group itineraries designed around your schedule and preferences.",
+    description: "Flexible individual and group itineraries designed around your schedule and preferences.",
     icon: Users,
   },
 ];
@@ -141,6 +134,12 @@ function ServiceCard({
       }}
       className="group relative"
     >
+      {/* Overlay link for full-card clickability */}
+      <Link 
+        href={`/contact?service=${encodeURIComponent(service.title)}`} 
+        className="absolute inset-0 z-20 rounded-2xl"
+        aria-label={`Contact us about ${service.title}`}
+      />
       {/* ── Outer glow (behind card) ── */}
       <motion.div
         className="pointer-events-none absolute -inset-1 rounded-3xl"
