@@ -1,47 +1,60 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import HeroSection from "@/components/sections/HeroSection";
 import CTASection from "@/components/sections/CTASection";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { company } from "@/content/company";
+import { fetchAboutContent } from "@/lib/notion-fetchers";
+
+// Revalidate every 60 seconds
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: "About Us",
     description: `Learn about ${company.name} — our story, mission, values, and why hundreds of travelers trust us to plan their memories.`,
 };
 
-export default function AboutPage() {
-    return (
-        <>
-            {/* Hero */}
-            <HeroSection
-                subtitle="Our Story"
-                title="The People Behind Your Perfect Trips"
-                description={`Since ${company.foundedYear}, ${company.name} has been transforming travel dreams into reality with passion, expertise, and unwavering dedication.`}
-                fullScreen={false}
-            />
+export default async function AboutPage() {
+    // Fetch editable content from Notion (falls back to static data)
+    const about = await fetchAboutContent();
 
-            {/* Company Story */}
-            <section className="section-padding bg-white relative z-20 -mt-16 md:-mt-32 rounded-t-[2rem] shadow-[0_-10px_60px_rgba(0,0,0,0.15)]">
+    return (
+        <div className="bg-dark/95">
+            {/* Sticky Hero Container */}
+            <div className="sticky top-0 z-0 h-screen w-full">
+                <HeroSection
+                    subtitle="Our Story"
+                    title={about.heroTitle}
+                    description={about.heroDescription}
+                    fullScreen={true}
+                />
+            </div>
+
+            {/* Sliding content sheet */}
+            <div className="relative z-10 bg-white rounded-t-[2rem] shadow-[0_-16px_80px_rgba(0,0,0,0.35)] -mt-[12vh] sm:-mt-[15vh] overflow-hidden pb-10">
+                <div className="flex justify-center pt-6 pb-2">
+                    <div className="w-10 h-1 rounded-full bg-black/10" />
+                </div>
+
+                {/* Company Story */}
+                <section className="section-padding relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         <AnimatedSection>
                             <div className="relative">
                                 <div className="aspect-[4/5] rounded-2xl bg-gray-100 overflow-hidden relative shadow-2xl">
-                                    {/* Placeholder for Founder Image. The user can drop a real image here. */}
-                                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center grayscale opacity-80 mix-blend-multiply transition-all duration-700 hover:grayscale-0 hover:opacity-100"></div>
+                                    <div className={`absolute inset-0 bg-cover bg-center grayscale opacity-80 mix-blend-multiply transition-all duration-700 hover:grayscale-0 hover:opacity-100`} style={{ backgroundImage: `url('${about.founderImage}')` }}></div>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                                     <div className="absolute bottom-0 left-0 p-8">
                                         <p className="font-heading text-2xl font-bold text-white mb-1">
-                                            {company.founderName}
+                                            {about.founderName}
                                         </p>
-                                        <p className="text-white/80 text-sm uppercase tracking-widest">{company.founderTitle}</p>
+                                        <p className="text-white/80 text-sm uppercase tracking-widest">{about.founderTitle}</p>
                                     </div>
                                 </div>
                                 <div className="absolute -bottom-6 -right-6 bg-white border border-gray-100 rounded-2xl p-6 shadow-xl max-w-[200px]">
-                                    <p className="font-heading text-3xl font-bold text-dark">{company.stats[2].value}</p>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">{company.stats[2].label}</p>
+                                    <p className="font-heading text-3xl font-bold text-dark">{about.statHighlightValue}</p>
+                                    <p className="text-xs text-gray-500 uppercase tracking-wider mt-1">{about.statHighlightLabel}</p>
                                 </div>
                             </div>
                         </AnimatedSection>
@@ -54,10 +67,10 @@ export default function AboutPage() {
                                 A Journey Born from <span className="text-gradient">Passion</span>
                             </h2>
                             <p className="text-gray-500 leading-relaxed mb-6">
-                                {company.founderStory}
+                                {about.founderStory}
                             </p>
                             <blockquote className="border-l-4 border-primary pl-6 italic text-gray-600">
-                                &ldquo;{company.tagline}&rdquo; — that&apos;s not just our tagline, it&apos;s our promise to every client.
+                                &ldquo;{about.tagline}&rdquo; — that&apos;s not just our tagline, it&apos;s our promise to every client.
                             </blockquote>
                         </AnimatedSection>
                     </div>
@@ -76,21 +89,21 @@ export default function AboutPage() {
                             <div className="bg-white rounded-2xl p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 h-full flex flex-col justify-center">
                                 <span className="text-primary font-heading text-4xl mb-6 block opacity-80">01</span>
                                 <h3 className="font-heading text-2xl font-bold text-dark mb-4">Our Mission</h3>
-                                <p className="text-gray-500 leading-relaxed text-lg">{company.mission}</p>
+                                <p className="text-gray-500 leading-relaxed text-lg">{about.mission}</p>
                             </div>
                         </AnimatedSection>
                         <AnimatedSection delay={0.15}>
                             <div className="bg-dark rounded-2xl p-10 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-dark h-full flex flex-col justify-center">
                                 <span className="text-accent font-heading text-4xl mb-6 block opacity-80">02</span>
                                 <h3 className="font-heading text-2xl font-bold text-white mb-4">Our Vision</h3>
-                                <p className="text-gray-300 leading-relaxed text-lg">{company.vision}</p>
+                                <p className="text-gray-300 leading-relaxed text-lg">{about.vision}</p>
                             </div>
                         </AnimatedSection>
                     </div>
                 </div>
             </section>
 
-            {/* Values */}
+            {/* Values — kept from static content since it's structural */}
             <section className="section-padding bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <SectionHeader
@@ -141,6 +154,8 @@ export default function AboutPage() {
                 buttonText="Contact Us Today"
                 buttonHref="/contact"
             />
-        </>
+            
+            </div>
+        </div>
     );
 }

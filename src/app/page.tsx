@@ -5,10 +5,12 @@ import OffersSlider from "@/components/sections/OffersSlider";
 import SectionHeader from "@/components/ui/SectionHeader";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import { company } from "@/content/company";
 import { testimonials } from "@/content/testimonials";
 import { offers } from "@/content/offers";
-import { services } from "@/content/services";
+import { fetchHomeContent } from "@/lib/notion-fetchers";
+
+// Revalidate every 60 seconds so Notion edits appear within a minute
+export const revalidate = 60;
 
 // Fallback high-quality destination images for the visual grid
 const destinations = [
@@ -19,6 +21,9 @@ const destinations = [
 ];
 
 export default async function HomePage() {
+  // Fetch editable content from Notion (falls back to static data)
+  const content = await fetchHomeContent();
+
   return (
     <div className="bg-dark/95">
       {/* ===== 1. Curated Travel Experiences (Dynamic Offers Hero) ===== */}
@@ -28,7 +33,7 @@ export default async function HomePage() {
       </div>
 
       {/* White content sheet — slides up over the sticky hero as you scroll */}
-      <div className="relative z-10 bg-white rounded-t-[2rem] shadow-[0_-16px_80px_rgba(0,0,0,0.35)] -mt-[6vh] overflow-hidden pb-10">
+      <div className="relative z-10 bg-white rounded-t-[2rem] shadow-[0_-16px_80px_rgba(0,0,0,0.35)] -mt-[12vh] sm:-mt-[15vh] overflow-hidden pb-10">
         
         {/* Drag handle hint line (from your JSX reference) */}
         <div className="flex justify-center pt-6 pb-2">
@@ -44,12 +49,12 @@ export default async function HomePage() {
               <div className="grid grid-cols-2 gap-4 relative z-10">
                 <div className="space-y-4 translate-y-8">
                   <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100 shadow-2xl">
-                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop')" }} />
+                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: `url('${content.intro.image1}')` }} />
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="aspect-[3/4] rounded-sm overflow-hidden bg-gray-100 shadow-2xl">
-                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop')" }} />
+                    <div className="w-full h-full bg-cover bg-center hover:scale-105 transition-transform duration-1000" style={{ backgroundImage: `url('${content.intro.image2}')` }} />
                   </div>
                 </div>
               </div>
@@ -61,7 +66,7 @@ export default async function HomePage() {
               <div className="flex items-center gap-4 mb-6">
                 <span className="w-12 h-[1px] bg-primary"></span>
                 <span className="text-primary text-xs font-medium uppercase tracking-[0.3em]">
-                  Welcome to {company.shortName}
+                  Welcome to {content.intro.shortName}
                 </span>
               </div>
               <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-medium text-dark mb-8 leading-[1.1] tracking-tight">
@@ -69,11 +74,11 @@ export default async function HomePage() {
                 <span className="italic text-primary">Unforgettable</span> Travel
               </h2>
               <p className="text-gray-500 font-light text-lg leading-relaxed mb-10">
-                {company.longDescription}
+                {content.intro.description}
               </p>
 
               <div className="grid grid-cols-2 gap-x-8 gap-y-10 pt-10 border-t border-gray-100">
-                {company.stats.map((stat) => (
+                {content.stats.map((stat) => (
                   <div key={stat.label}>
                     <p className="font-heading text-4xl md:text-5xl font-medium text-dark mb-2">{stat.value}</p>
                     <p className="text-gray-400 text-xs uppercase tracking-[0.2em]">{stat.label}</p>

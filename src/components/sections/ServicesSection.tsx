@@ -17,6 +17,21 @@ import Link from "next/link";
 
 /* ─── Data ─── */
 
+// Map of Lucide icon names to components for Notion integration
+const iconMap: Record<string, LucideIcon> = {
+  Hotel, Globe, Plane, BookOpen, Car, ShieldCheck, CalendarRange, Users,
+};
+
+interface NotionService {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  iconName: string;
+  icon: string;
+  order: number;
+}
+
 interface ServiceItem {
   title: string;
   description: string;
@@ -247,7 +262,19 @@ function ServiceCard({
 
 /* ─── Section ─── */
 
-export default function ServicesSection() {
+interface ServicesSectionProps {
+  notionServices?: NotionService[];
+}
+
+export default function ServicesSection({ notionServices }: ServicesSectionProps = {}) {
+  // If Notion services are provided, map them to the internal format
+  const displayServices: ServiceItem[] = notionServices
+    ? notionServices.map((s) => ({
+        title: s.title,
+        description: s.description,
+        icon: iconMap[s.iconName] || Globe,
+      }))
+    : services;
   return (
     <section
       id="services"
@@ -339,7 +366,7 @@ export default function ServicesSection() {
           viewport={{ once: true, margin: "-60px" }}
           className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6"
         >
-          {services.map((service, i) => (
+          {displayServices.map((service, i) => (
             <ServiceCard key={service.title} service={service} index={i} />
           ))}
         </motion.div>
